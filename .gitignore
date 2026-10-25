@@ -1,0 +1,71 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# =========================
+# Environment variables / secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# API keys and credentials
+secrets.json
+credentials.json
+service-account*.json
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Frontend dependencies
+# =========================
+node_modules/
+dist/
+build/
+
+# =========================
+# Generated files
+# =========================
+*.pdf
+*.tmp
+*.bak
+
+# =========================
+# Editors and operating system
+# =========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# =========================
+# Local databases
+# =========================
+*.sqlite
+*.sqlite3
+*.db
+
+# =========================
+# Local model and dataset files
+# =========================
+*.pt
+*.pth
+*.onnx
+*.safetensors
