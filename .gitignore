@@ -69,3 +69,7 @@ Thumbs.db
 *.pth
 *.onnx
 *.safetensors
+
+frontend/.streamlit/secrets.toml
+backend/.env
+.env
