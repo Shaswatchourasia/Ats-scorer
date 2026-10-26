@@ -15,16 +15,44 @@ except ImportError:
     pass
 
 
+# def _secret(key: str, section: str = 'supabase') -> str:
+#     """Read from env first, then fall back to st.secrets[section][key]."""
+#     val = os.getenv(key, '')
+#     if val:
+#         return val
+#     try:
+#         return st.secrets[section][key]
+#     except (KeyError, FileNotFoundError, AttributeError):
+#         return ''
 def _secret(key: str, section: str = 'supabase') -> str:
-    """Read from env first, then fall back to st.secrets[section][key]."""
-    val = os.getenv(key, '')
-    if val:
-        return val
-    try:
-        return st.secrets[section][key]
-    except (KeyError, FileNotFoundError, AttributeError):
-        return ''
+    """Read credentials from environment variables or Streamlit secrets."""
 
+    # 1. Local .env or environment variables
+    value = os.getenv(key, '').strip()
+    if value:
+        return value
+
+    # 2. Nested Streamlit secrets: [supabase] or [SUPABASE]
+    try:
+        for section_name in (section, section.upper()):
+            if section_name in st.secrets:
+                value = str(
+                    st.secrets[section_name].get(key, '')
+                ).strip()
+                if value:
+                    return value
+    except Exception:
+        pass
+
+    # 3. Top-level Streamlit secrets
+    try:
+        value = str(st.secrets.get(key, '')).strip()
+        if value:
+            return value
+    except Exception:
+        pass
+
+    return 
 
 SUPABASE_URL = _secret('SUPABASE_URL')
 SUPABASE_ANON_KEY = _secret('SUPABASE_ANON_KEY')
