@@ -14,3 +14,9 @@ fastapi
 uvicorn[standard]
 
 spacy
+
+fastapi
+uvicorn[standard]
+spacy
+sentence-transformers
+spacy-transformers
