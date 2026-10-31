@@ -9,3 +9,6 @@ pypdf
 python-docx
 requests
 httpx
+
+fastapi
+uvicorn[standard]
