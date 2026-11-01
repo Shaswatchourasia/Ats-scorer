@@ -4,7 +4,7 @@ import requests
 import streamlit as st
 
 
-DEFAULT_BACKEND_URL = "http://localhost:8000"
+DEFAULT_BACKEND_URL = "https://ats-scorer-5pcd.onrender.com"
 
 
 def _backend_url() -> str:
@@ -12,6 +12,7 @@ def _backend_url() -> str:
         return st.secrets["backend"]["url"]
     except (KeyError, FileNotFoundError):
         return DEFAULT_BACKEND_URL
+st.write("Connected Backend:", _backend_url())
 
 
 def _auth_headers(access_token: str) -> Dict[str, str]:
