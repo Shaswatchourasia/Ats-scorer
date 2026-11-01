@@ -208,7 +208,9 @@ def render() -> None:
     job_description = _read_jd(jd_file, jd_text) if analysis_mode == "Job Description Comparison" else ""
 
     try:
+        st.info(f"Connected Backend: {api_client._backend_url()}")
         with st.spinner("Analyzing your resume... this can take 10–30 seconds."):
+        
             analysis = api_client.analyze_resume(
                 resume_file=resume_file,
                 access_token=access_token,
