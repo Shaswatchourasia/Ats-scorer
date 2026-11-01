@@ -28,11 +28,22 @@ async def analyze_resume(
     job_description: str = Form('', description='Job description text (optional)'),
     user_id: str = Depends(get_current_user),
 ):
+    # warnings: List[str] = []
+
+
+    # nlp      = request.app.state.nlp
+    # embedder = request.app.state.embedder
+
     warnings: List[str] = []
 
+# Load ML models on first analysis request
+    from backend.main import ensure_models_loaded
+    await ensure_models_loaded(request.app)
 
-    nlp      = request.app.state.nlp
+    nlp = request.app.state.nlp
     embedder = request.app.state.embedder
+    
+
 
 
     try:
@@ -122,13 +133,22 @@ async def analyze_resume(
 
     return response
 
+# @router.get('/health')
+# async def health_check(request: Request):
+#     """Health check — confirms models are loaded and the API is ready."""
+#     return {
+#         'status':          'healthy',
+#         'nlp_loaded':      request.app.state.nlp is not None,
+#         'embedder_loaded': request.app.state.embedder is not None,
+
 @router.get('/health')
 async def health_check(request: Request):
-    """Health check — confirms models are loaded and the API is ready."""
     return {
-        'status':          'healthy',
-        'nlp_loaded':      request.app.state.nlp is not None,
+        'status': 'healthy',
+        'nlp_loaded': request.app.state.nlp is not None,
         'embedder_loaded': request.app.state.embedder is not None,
+        'models_loaded': request.app.state.models_loaded,
+    
     }
 
 @router.get('/history')
