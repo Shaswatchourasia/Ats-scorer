@@ -23,11 +23,13 @@ def _clean(text: str) -> str:
 
 @router.post('/analyze-resume', response_model=AnalysisResponse)
 async def analyze_resume(
+    
     request: Request,
     resume: UploadFile = File(..., description='Resume file — PDF or DOCX, max 5 MB'),
     job_description: str = Form('', description='Job description text (optional)'),
     user_id: str = Depends(get_current_user),
 ):
+    logger.info("RESUME ANALYSIS REQUEST RECEIVED")
     # warnings: List[str] = []
 
 
